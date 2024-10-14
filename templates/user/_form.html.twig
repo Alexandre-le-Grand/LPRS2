@@ -1,0 +1,10 @@
+
+
+    <div class="col-2">
+        {{ form_start(form, {'attr': {'class': 'form-floating'}}) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success m-1">{{ button_label|default('Save') }}</button>
+        {{ form_end(form) }}
+    </div>
+
+

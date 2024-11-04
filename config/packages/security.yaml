@@ -38,7 +38,7 @@ security:
 
          - { path: ^/event, roles: [ROLE_USER] }
          - { path: ^/event/new, roles: [ROLE_USER] }
-         - { path: ^/offre/new, roles: [ROLE_ENTREPRISE] }
+         - { path: ^/offre/new, roles: [ROLE_USER] }
 
         # - { path: ^/profile, roles: ROLE_USER }
 

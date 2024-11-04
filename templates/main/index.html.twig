@@ -9,6 +9,7 @@
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
 		<div class="container">
+		
 			<a class="navbar-brand" href="#page-top">TCG LPRS</a>
 			<button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				Menu
@@ -59,7 +60,16 @@
 						Bonjour,
 						{{ app.user.nom }} {{ app.user.prenom }},
 				{% endif %}
-				<a class="btn btn-primary btn-xl" href="{{ path('app_user_index') }}">Acces au compte</a>
+				<br>
+				{% if app.user %}
+    <a class="btn btn-primary btn-xl" href="{{ path('app_edit_user', { 'id': app.user.id }) }}">Modification de votre compte</a>
+	<a class="btn btn-primary btn-xl" href="{{ path('app_event') }}">test event</a>
+{% else %}
+    <a class="btn btn-primary btn-xl" href="{{ path('app_login') }}">Modification de votre compte</a>
+	<a class="btn btn-primary btn-xl" href="{{ path('app_event') }}">test event</a>
+{% endif %}
+
+
 			</p>
 
 		</div>
@@ -69,24 +79,19 @@
 		<div
 			class="container">
 			<!-- Portfolio Section Heading-->
+			
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Liste</h2>
+			
 						<!-- Icon Divider-->
+										<br>
+				<div class="text-center">
+					<a class="btn btn-primary btn-xl" href="{{ path('app_user_index') }}">Acces a la liste des utilisateurs</a>
+				</div>
 			
 		</div>
 	</section>
 	<!-- About Section-->
-	<section class="page-section bg-primary text-white mb-0" id="about">
-		<div
-			class="container">
-			<!-- About Section Heading-->
-			<h2 class="page-section-heading text-center text-uppercase text-white">...</h2>
-			<!-- Icon Divider-->
-			<div class="divider-custom divider-light">
-				<div class="divider-custom-line"></div>
-				<div class="divider-custom-icon">
-					<i class="fas fa-star"></i>
-				</div>
-				<div class="divider-custom-line"></div>
+
 			</div>
 			<!-- About Section Button-->
 		</div>

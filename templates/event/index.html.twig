@@ -1,0 +1,76 @@
+{# templates/event/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Événement{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Créer un Événement</h1>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_row(form.titreEvenement, {
+                'label': 'Titre de l\'Événement',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.description, {
+                'label': 'Description',
+                'attr': {'class': 'form-control', 'rows': 4}
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.lieu, {
+                'label': 'Lieu',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.nombrePlaces, {
+                'label': 'Nombre de Places',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.dateEvenement, {
+                'label': 'Date de l\'Événement',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.typeEvenement, {
+                'label': 'Type d\'Événement',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        {# Les champs de professeur et d'entreprise ne doivent pas être visibles pour l'utilisateur #}
+    <div class="mb-3">
+            {{ form_row(form.ref_professeur, {
+                'label': 'Professeur',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.ref_entreprise, {
+                'label': 'Entreprise',
+                'attr': {'class': 'form-control'}
+            }) }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+
+        {{ form_end(form) }}
+
+        <a href="{{ path('app_main') }}" class="btn btn-secondary mt-3">Retour à la liste des événements</a>
+    </div>
+{% endblock %}

@@ -60,13 +60,11 @@
 						Bonjour,
 						{{ app.user.nom }} {{ app.user.prenom }},
 				{% endif %}
-				<br>
+				<br><br>
 				{% if app.user %}
     <a class="btn btn-primary btn-xl" href="{{ path('app_edit_user', { 'id': app.user.id }) }}">Modification de votre compte</a>
-	<a class="btn btn-primary btn-xl" href="{{ path('app_event') }}">test event</a>
 {% else %}
     <a class="btn btn-primary btn-xl" href="{{ path('app_login') }}">Modification de votre compte</a>
-	<a class="btn btn-primary btn-xl" href="{{ path('app_event') }}">test event</a>
 {% endif %}
 
 

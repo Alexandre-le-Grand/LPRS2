@@ -33,11 +33,11 @@ class Evenement
     private ?string $typeEvenement = null;
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Professeur $ref_professeur = null;
 
     #[ORM\ManyToOne(inversedBy: 'evenements')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Entreprise $ref_entreprise = null;
 
     public function getId(): ?int

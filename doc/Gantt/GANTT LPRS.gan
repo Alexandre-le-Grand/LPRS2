@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-09-05" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3309" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="200" order="0"/>
+        <field id="tpd4" name="Date de début" width="75" order="1"/>
+        <field id="tpd5" name="Date de fin" width="75" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#cc00cc #ffff00 #0000ff]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="bf637b09ecc04448a66ea884e946fa01" name="Création GANTT" color="#0000ff" meeting="false" start="2024-09-09" duration="7" complete="0" priority="2" expand="true">
+            <notes><![CDATA[Fait par clément Gravallon (l'ensemble des tâches bleu)]]></notes>
+        </task>
+        <task id="14" uid="0fd31c38d7244101b8b9783769870ae9" name="Copie_Création GANTT" color="#ffff00" meeting="false" start="2024-09-09" duration="7" complete="0" priority="2" expand="true">
+            <notes><![CDATA[Fait par clément Gravallon (l'ensemble des tâches bleu)]]></notes>
+        </task>
+        <task id="13" uid="488fbb9db59a4ad1be490bebe1c912ca" name="MCD/MLD/MDP" color="#cc00cc" meeting="false" start="2024-09-09" duration="7" complete="0" expand="true">
+            <notes><![CDATA[Violet Alexandre
+]]></notes>
+        </task>
+        <task id="15" uid="d5c4f290f3b14ad98bc20a76b76acbf0" name="Ajout page accueil" color="#cc00cc" meeting="false" start="2024-09-23" duration="3" complete="0" expand="true"/>
+        <task id="6" uid="9b9f2ee030bd4865998987a3d5036176" name="Création du projet et CRUD" color="#cc00cc" meeting="false" start="2024-09-23" duration="3" complete="0" priority="2" expand="true"/>
+        <task id="8" uid="37899d0c976b47b29d943efcc19c050e" name="Formation symfony" color="#0000ff" meeting="false" start="2024-09-23" duration="11" complete="0" expand="true">
+            <notes><![CDATA[Quand on utilise le therme ajout c'est pour dire que avant la date impartie le rôle doit être fini avec l'ensemble des tâches qu'il doit faire. ]]></notes>
+        </task>
+        <task id="9" uid="11053c3dd091415aa53d5a624f0024c5" name="Formation symfony" color="#ffff00" meeting="false" start="2024-09-23" duration="14" complete="0" expand="true">
+            <notes><![CDATA[Quand on utilise le therme ajout c'est pour dire que avant la date impartie le rôle doit être fini avec l'ensemble des tâches qu'il doit faire. ]]></notes>
+        </task>
+        <task id="7" uid="8a5207607eee43d9ae0302f6021ce8a3" name="Formation symfony" color="#cc00cc" meeting="false" start="2024-09-30" duration="7" complete="0" expand="true">
+            <notes><![CDATA[Quand on utilise le therme ajout c'est pour dire que avant la date impartie le rôle doit être fini avec l'ensemble des tâches qu'il doit faire. ]]></notes>
+        </task>
+        <task id="17" uid="57c173dcf8a44cd8b7f6c0c496acda96" name="Annuaire des anciens élèves" color="#cc00cc" meeting="false" start="2024-10-14" duration="7" complete="0" expand="true"/>
+        <task id="21" uid="414e806d20234a65b0fca0bc3b5e1057" name="Accès au profil des ancines élèves" color="#0000ff" meeting="false" start="2024-10-14" duration="7" complete="0" expand="true"/>
+        <task id="26" uid="32a76e114167495db9b6982973f2fec2" name="Publication d'offre" color="#ffff00" meeting="false" start="2024-10-14" duration="14" complete="0" expand="true"/>
+        <task id="18" uid="0162d2d7ec3b4fc1b397694ca0101e5f" name="Oportunité de stage" color="#cc00cc" meeting="false" start="2024-10-21" duration="7" complete="0" expand="true"/>
+        <task id="22" uid="ebdfc94d786c4427bb27f5f3b915c78e" name="Accès au profil étudiant actuel" color="#0000ff" meeting="false" start="2024-10-21" duration="7" complete="0" expand="true"/>
+        <task id="23" uid="56b1fbdad9914cc6ab3e83bd93eeb286" name="Publication évènements" color="#0000ff" meeting="false" start="2024-10-28" duration="7" complete="0" expand="true"/>
+        <task id="19" uid="f3324194f5b2424b8dbd459e9e3b56bf" name="Participation a des évènements" color="#cc00cc" meeting="false" start="2024-10-28" duration="7" complete="0" expand="true"/>
+        <task id="29" uid="3bd5bbd142494d2fbe64f3d4c11c7579" name="Profil des entreprises" color="#ffff00" meeting="false" start="2024-10-28" duration="14" complete="0" expand="true"/>
+        <task id="20" uid="ab228c59200a4602a7e988efe13e8e82" name="Forum de discution" color="#cc00cc" meeting="false" start="2024-11-04" duration="7" complete="0" expand="true"/>
+        <task id="24" uid="d19dcf1cf239479ca6227b633d5f6f34" name="Accès section des offres" color="#0000ff" meeting="false" start="2024-11-04" duration="7" complete="0" expand="true"/>
+        <task id="11" uid="248a69485cb949949db6d73f32cc2d13" name="Creation de la doc" color="#cc00cc" meeting="false" start="2024-11-18" duration="11" complete="0" expand="true"/>
+        <task id="10" uid="d1a4558646784d45bf952c8fd74011d3" name="Ajout des entreprises partenaires" color="#0000ff" meeting="false" start="2024-11-18" duration="11" complete="0" expand="true"/>
+        <task id="12" uid="8ac410317b2e473e8e287646df1bc7fd" name="Teste de sécurité du site" color="#ffff00" meeting="false" start="2024-11-18" duration="11" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

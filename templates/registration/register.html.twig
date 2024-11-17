@@ -6,7 +6,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4">
-                <h1 class="text-center m-4">Inscription</h1>
+                {% if app.user %}
+                    <h1 class="text-center m-4">Modification de compte</h1>
+                {% else %}
+                    <h1 class="text-center m-4">Inscription</h1>
+                {% endif %}
 
                 {{ form_errors(registrationForm) }}
 
@@ -58,3 +62,5 @@
             </a>
     {{ form_end(registrationForm) }}
 {% endblock %}
+
+

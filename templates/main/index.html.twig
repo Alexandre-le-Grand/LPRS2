@@ -21,6 +21,9 @@
 						<li class="nav-item mx-0 mx-lg-1">
 							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_logout') }}">Deconnexion</a>
 						</li>
+						<li class="nav-item mx-0 mx-lg-1">
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_edit_user', { 'id': app.user.id }) }}">Compte</a>
+					</li>
 					{% else %}
 						<li class="nav-item mx-0 mx-lg-1">
 							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="/login">Connexion</a>
@@ -30,10 +33,7 @@
 						</li>
 					{% endif %}
 					<li class="nav-item mx-0 mx-lg-1">
-						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a>
-					</li>
-					<li class="nav-item mx-0 mx-lg-1">
-						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a>
+						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Information</a>
 					</li>
 				</ul>
 			</div>
@@ -58,14 +58,13 @@
 			<p class="masthead-subheading font-weight-light mb-0">
 				{% if app.user %}
 						Bonjour,
-						{{ app.user.nom }} {{ app.user.prenom }},
+						{{ app.user.nom }} {{ app.user.prenom }}
 				{% endif %}
 				<br><br>
 				{% if app.user %}
-    <a class="btn btn-primary btn-xl" href="{{ path('app_edit_user', { 'id': app.user.id }) }}">Modification de votre compte</a>
-{% else %}
-    <a class="btn btn-primary btn-xl" href="{{ path('app_login') }}">Modification de votre compte</a>
-{% endif %}
+				{% else %}
+				Bienvenu, connecte toi ou inscrit toi.
+				{% endif %}
 
 
 			</p>
@@ -74,21 +73,30 @@
 	</header>
 	<!-- Portfolio Section-->
 	<section class="page-section portfolio" id="portfolio">
+	{% if app.user %}
 		<div
 			class="container">
 			<!-- Portfolio Section Heading-->
-			
+				<!-- About Section-->
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Liste</h2>
 			
 						<!-- Icon Divider-->
 										<br>
 				<div class="text-center">
 					<a class="btn btn-primary btn-xl" href="{{ path('app_user_index') }}">Acces a la liste des utilisateurs</a>
+					<br><br>
+					<a class="btn btn-primary btn-xl" href="{{ path('app_evenement_index') }}">Acces a la liste des Evenements</a>
+					<br><br>
+					<a class="btn btn-primary btn-xl" href="{{ path('app_offre_index') }}">Acces a la liste des Offres</a>
+					<br><br>
+					<a class="btn btn-primary btn-xl" href="{{ path('app_professeur_index') }}">Acces a la liste des Profeseurs</a>
 				</div>
 			
 		</div>
+		{% else %}
+		{% endif %}
 	</section>
-	<!-- About Section-->
+
 
 			</div>
 			<!-- About Section Button-->

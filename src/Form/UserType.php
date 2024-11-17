@@ -30,6 +30,7 @@ class UserType extends AbstractType
                         'Administrateur' => 'ROLE_ADMIN',
                         'Utilisateur' => 'ROLE_USER',
                         'Professeur' => 'ROLE_PROFESSEUR',
+                        
                     ],
                     'label' => false,
                     'attr' => ['class' => 'form-control m-2'],

@@ -3,18 +3,19 @@
 {% block title %}Offre index{% endblock %}
 
 {% block body %}
-    <h1>Offre index</h1>
-
-    <table class="table">
+<div class="container">
+    <h1 class="display-4 my-4">Liste des Offres</h1>
+    
+    <table class="table table-striped" id="offres">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>TitreOffre</th>
+                <th>Titre</th>
                 <th>Description</th>
-                <th>TypeOffre</th>
-                <th>EtatOffre</th>
-                <th>DatePublication</th>
-                <th>actions</th>
+                <th>Type</th>
+                <th>État</th>
+                <th>Date de Publication</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +28,25 @@
                 <td>{{ offre.etatOffre }}</td>
                 <td>{{ offre.datePublication ? offre.datePublication|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_offre_show', {'id': offre.id}) }}">show</a>
-                    <a href="{{ path('app_offre_edit', {'id': offre.id}) }}">edit</a>
+                    <div class="d-flex">
+                        <a href="{{ path('app_offre_show', {'id': offre.id}) }}" class="btn btn-success m-1">Afficher</a>
+                        <a href="{{ path('app_offre_edit', {'id': offre.id}) }}" class="btn btn-primary m-1">Éditer</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_offre_new') }}">Create new</a>
+    <a href="{{ path('app_offre_new') }}" class="btn btn-lg btn-primary m-3">Créer une nouvelle offre</a>
+    <a href="{{ path('app_main') }}" class="btn btn-lg btn-primary m-3">Retour</a>
+</div>
+
+<script>
+    let table = new DataTable('#offres');
+</script>
 {% endblock %}

@@ -3,19 +3,20 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
-    <h1>Evenement index</h1>
-
-    <table class="table">
+<div class="container">
+    <h1 class="display-4 my-4">Liste des Événements</h1>
+    
+    <table class="table table-striped" id="evenements">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>TitreEvenement</th>
+                <th>Titre</th>
                 <th>Description</th>
                 <th>Lieu</th>
-                <th>NombrePlaces</th>
-                <th>DateEvenement</th>
-                <th>TypeEvenement</th>
-                <th>actions</th>
+                <th>Nombre de Places</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,17 +30,25 @@
                 <td>{{ evenement.dateEvenement ? evenement.dateEvenement|date('Y-m-d') : '' }}</td>
                 <td>{{ evenement.typeEvenement }}</td>
                 <td>
-                    <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}">show</a>
-                    <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}">edit</a>
+                    <div class="d-flex">
+                        <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-success m-1">Afficher</a>
+                        <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}" class="btn btn-primary m-1">Éditer</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_evenement_new') }}">Create new</a>
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-lg btn-primary m-3">Créer un nouvel événement</a>
+    <a href="{{ path('app_main') }}" class="btn btn-lg btn-primary m-3">Retour</a>
+</div>
+
+<script>
+    let table = new DataTable('#evenements');
+</script>
 {% endblock %}

@@ -29,6 +29,22 @@
                         placeholder: 'Prenom'
                     }
                 }) }}
+                {% if app.user and is_granted('ROLE_PROFESSEUR') %}
+                    {{ form_row(registrationForm.discipline, {
+                        label: 'Discipline',
+                        attr: {
+                            class: 'form-control',
+                            placeholder: 'Discipline'
+                        }
+                    }) }}
+                    {{ form_row(registrationForm.formation, {
+                        label: 'Formation',
+                        attr: {
+                            class: 'form-control',
+                            placeholder: 'Formation'
+                        }
+                    }) }}
+                {% endif %}
                 {{ form_row(registrationForm.email, {
                     label: 'Email',
                     attr: {
@@ -43,17 +59,17 @@
                             placeholder: 'Password'
                         }
                     }) }}
-        <div class="form-check my-3">
-            {{ form_widget(registrationForm.agreeTerms, {
-                'attr': {
-                    'class': 'form-check-input',
-                    'id': 'agreeTerms'
-                }
-            }) }}
-            <label class="form-check-label" for="agreeTerms">
-                I agree to the <a href="#">terms and conditions</a>
-            </label>
-        </div>
+                    <div class="form-check my-3">
+                        {{ form_widget(registrationForm.agreeTerms, {
+                            'attr': {
+                                'class': 'form-check-input',
+                                'id': 'agreeTerms'
+                            }
+                        }) }}
+                        <label class="form-check-label" for="agreeTerms">
+                            I agree to the <a href="#">terms and conditions</a>
+                        </label>
+                    </div>
         <button type="submit" class="btn btn-lg btn-primary m-3" >Register</button>
                    </a>
                       <a class="btn btn-lg btn-primary m-3" href="{{ path('app_main') }}">

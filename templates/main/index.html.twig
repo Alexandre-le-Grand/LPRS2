@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block body %}
-	<!DOCTYPE html>
 
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
@@ -22,8 +21,11 @@
 							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_logout') }}">Deconnexion</a>
 						</li>
 						<li class="nav-item mx-0 mx-lg-1">
-						<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_edit_user', { 'id': app.user.id }) }}">Compte</a>
-					</li>
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ path('app_edit_user', { 'id': app.user.id }) }}">Compte</a>
+						</li>
+						<li class="nav-item mx-0 mx-lg-1">
+							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="/post">Forum</a>
+						</li>
 					{% else %}
 						<li class="nav-item mx-0 mx-lg-1">
 							<a class="nav-link py-3 px-0 px-lg-3 rounded" href="/login">Connexion</a>
@@ -63,7 +65,7 @@
 				<br><br>
 				{% if app.user %}
 				{% else %}
-				Bienvenu, connecte toi ou inscrit toi.
+				Bienvenue, connectez vous ou inscrivez vous.
 				{% endif %}
 
 

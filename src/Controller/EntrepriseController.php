@@ -65,6 +65,7 @@ final class EntrepriseController extends AbstractController
         return $this->render('entreprise/edit.html.twig', [
             'entreprise' => $entreprise,
             'form' => $form,
+            
         ]);
     }
 

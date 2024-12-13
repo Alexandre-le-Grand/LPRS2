@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
 {
-    // Yacine
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -23,13 +22,13 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: "datetime")]
     private ?\DateTimeInterface $date_heure_publication = null;
 
     #[ORM\Column(length: 255)]
     private ?string $canal = null;
 
-    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $ref_utilisateur = null;
 
@@ -54,7 +53,7 @@ class Post
         return $this->contenuPost;
     }
 
-    public function setContenuPost(string $contenuPost): static
+    public function setContenuPost(string $contenuPost): self
     {
         $this->contenuPost = $contenuPost;
 
@@ -66,7 +65,7 @@ class Post
         return $this->titre;
     }
 
-    public function setTitre(string $titre): static
+    public function setTitre(string $titre): self
     {
         $this->titre = $titre;
 
@@ -78,7 +77,7 @@ class Post
         return $this->date_heure_publication;
     }
 
-    public function setDateHeurePublication(\DateTimeInterface $date_heure_publication): static
+    public function setDateHeurePublication(\DateTimeInterface $date_heure_publication): self
     {
         $this->date_heure_publication = $date_heure_publication;
 
@@ -90,7 +89,7 @@ class Post
         return $this->canal;
     }
 
-    public function setCanal(string $canal): static
+    public function setCanal(string $canal): self
     {
         $this->canal = $canal;
 
@@ -102,7 +101,7 @@ class Post
         return $this->ref_utilisateur;
     }
 
-    public function setRefUtilisateur(?User $ref_utilisateur): static
+    public function setRefUtilisateur(?User $ref_utilisateur): self
     {
         $this->ref_utilisateur = $ref_utilisateur;
 
@@ -117,7 +116,7 @@ class Post
         return $this->reponses;
     }
 
-    public function addReponse(Reponse $reponse): static
+    public function addReponse(Reponse $reponse): self
     {
         if (!$this->reponses->contains($reponse)) {
             $this->reponses->add($reponse);
@@ -127,10 +126,9 @@ class Post
         return $this;
     }
 
-    public function removeReponse(Reponse $reponse): static
+    public function removeReponse(Reponse $reponse): self
     {
         if ($this->reponses->removeElement($reponse)) {
-            // set the owning side to null (unless already changed)
             if ($reponse->getRefPost() === $this) {
                 $reponse->setRefPost(null);
             }

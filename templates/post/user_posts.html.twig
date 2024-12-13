@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Posts{% endblock %}
+
+{% block body %}
+    <h1>Mes Posts</h1>
+
+    {% for post in posts %}
+        <div class="indication">
+            <h2>{{ post.titre }}</h2>
+            <p>{{ post.contenuPost }}</p>
+            <p>Publié le {{ post.dateHeurePublication|date('d/m/Y à H:i') }}</p>
+
+            <div class="indication-actions">
+                <a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-primary">Modifier</a>
+                <form action="{{ path('app_post_delete', {'id': post.id}) }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucun post trouvé.</p>
+    {% endfor %}
+{% endblock %}

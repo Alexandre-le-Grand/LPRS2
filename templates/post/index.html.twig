@@ -62,7 +62,9 @@
                         {% endfor %}
 
                         <div class="indication-actions">
-                            <button onclick="afficherCommentaires({{ post.id }})"><i class="fas fa-comments"></i> Commenter</button>
+                            <button onclick="window.location.href = '{{ path('app_post_show', {id: post.id}) }}';">
+                                <i class="fas fa-comments"></i> Commenter
+                            </button>
                         </div>
                     </div>
                 {% endif %}

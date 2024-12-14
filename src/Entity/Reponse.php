@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ReponseRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
+
 
 #[ORM\Entity(repositoryClass: ReponseRepository::class)]
 class Reponse
@@ -62,6 +64,17 @@ class Reponse
     public function setRefPost(?Post $ref_post): static
     {
         $this->ref_post = $ref_post;
+
+        return $this;
+    }
+    public function getRefUtilisateur(): ?User
+    {
+        return $this->refUtilisateur;
+    }
+
+    public function setRefUtilisateur(?User $refUtilisateur): self
+    {
+        $this->refUtilisateur = $refUtilisateur;
 
         return $this;
     }

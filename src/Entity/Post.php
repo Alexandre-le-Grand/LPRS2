@@ -108,8 +108,8 @@ class Post
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reponse>
+   /**
+     * @return Collection|Reponse[]
      */
     public function getReponses(): Collection
     {
@@ -119,7 +119,7 @@ class Post
     public function addReponse(Reponse $reponse): self
     {
         if (!$this->reponses->contains($reponse)) {
-            $this->reponses->add($reponse);
+            $this->reponses[] = $reponse;
             $reponse->setRefPost($this);
         }
 
@@ -129,6 +129,7 @@ class Post
     public function removeReponse(Reponse $reponse): self
     {
         if ($this->reponses->removeElement($reponse)) {
+            // Set refPost to null to maintain referential integrity
             if ($reponse->getRefPost() === $this) {
                 $reponse->setRefPost(null);
             }

@@ -65,6 +65,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'ref_utilisateur', orphanRemoval: true)]
     private Collection $posts;
 
+    private $reponses;
+
     public function __construct()
     {
         $this->professeurs = new ArrayCollection();
@@ -290,5 +292,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getReponses(): Collection
+    {
+        return $this->reponses;
     }
 }

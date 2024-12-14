@@ -28,45 +28,48 @@
                 
                 {{ form_start(form) }}
                 <div class="form-group">
-                    {{ form_row(form.titre, {'attr': {'placeholder': 'Titre du post'}}) }}        <!-- Titre -->
+                    {{ form_row(form.titre, {'attr': {'placeholder': 'Titre du post'}}) }}       
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.contenuPost, {'attr': {'placeholder': 'Contenu du post'}}) }}   <!-- Contenu du post -->
+                    {{ form_row(form.contenuPost, {'attr': {'placeholder': 'Contenu du post'}}) }} 
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.canal) }}         <!-- Canal -->
+                    {{ form_row(form.canal) }}       
                 </div>
-                <button type="submit" class="btn-publish">Publier</button>   <!-- Bouton pour soumettre le formulaire -->
+                <button type="submit" class="btn-publish">Publier</button>  
                 {{ form_end(form) }}
             </div>
 
             <!-- Affichage des posts -->
+            <h3> Fil d'actualités </h3>
             {% for post in posts %}
-                <div class="indication">
-                    <div class="indication-header">
-                        <img src="https://www.lyceerobertschuman.com/wp-content/uploads/2016/03/logo.png" alt="Avatar de l'utilisateur">
-                        <div class="user-info">
-                            <!-- Suppression de la référence à l'utilisateur -->
-                            <!-- <h3>{{ post.refUtilisateur.nom }}</h3> -->
+                {% if post.canal == 'general' %}
+                    <div class="indication">
+                        <div class="indication-header">
+                            <img src="https://www.lyceerobertschuman.com/wp-content/uploads/2016/03/logo.png" alt="Avatar de l'utilisateur">
+                            <div class="user-info">
+                                <h3>{{ post.refUtilisateur.prenom }} {{ post.refUtilisateur.nom }}</h3>
+                            </div>
+                        </div>
+                        <h2>{{ post.titre }}</h2>
+                        <p>{{ post.contenuPost }}</p>
+                        <p>Publié le {{ post.dateHeurePublication|date('d/m/Y à H:i') }}</p>
+
+                        {% for reponse in post.reponses %}
+                            <div class="reponse">
+                                <p>{{ reponse.contenu }}</p>
+                            </div>
+                        {% endfor %}
+
+                        <div class="indication-actions">
+                            <button onclick="afficherCommentaires({{ post.id }})"><i class="fas fa-comments"></i> Commenter</button>
                         </div>
                     </div>
-                    <h2>{{ post.titre }}</h2>
-                    <p>{{ post.contenuPost }}</p>
-                    <p>Publié le {{ post.dateHeurePublication|date('d/m/Y à H:i') }}</p>
-
-                    {% for reponse in post.reponses %}
-                        <div class="reponse">
-                            <p>{{ reponse.contenu }}</p>
-                        </div>
-                    {% endfor %}
-
-                    <div class="indication-actions">
-                        <button onclick="afficherCommentaires({{ post.id }})"><i class="fas fa-comments"></i> Commenter</button>
-                    </div>
-                </div>
+                {% endif %}
             {% else %}
                 <p>Aucun post trouvé.</p>
             {% endfor %}
+
         </div>
     </div>
 

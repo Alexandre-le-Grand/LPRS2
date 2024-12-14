@@ -7,8 +7,9 @@
 
     {% for post in posts %}
         <div class="indication">
-            <h2>{{ post.titre }}</h2>
-            <p>{{ post.contenuPost }}</p>
+            <h2>Titre : {{ post.titre }}</h2>
+            <p>Contenu : {{ post.contenuPost }}</p>
+            <p> Canal : {{ post.canal }}</p>
             <p>Publié le {{ post.dateHeurePublication|date('d/m/Y à H:i') }}</p>
 
             <div class="indication-actions">

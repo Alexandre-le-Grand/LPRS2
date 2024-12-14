@@ -2,6 +2,10 @@
 
 {% block title %}Mes Posts{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/mes_posts.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Mes Posts</h1>
 
@@ -9,7 +13,7 @@
         <div class="indication">
             <h2>Titre : {{ post.titre }}</h2>
             <p>Contenu : {{ post.contenuPost }}</p>
-            <p> Canal : {{ post.canal }}</p>
+            <p>Canal : {{ post.canal }}</p>
             <p>Publié le {{ post.dateHeurePublication|date('d/m/Y à H:i') }}</p>
 
             <div class="indication-actions">

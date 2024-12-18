@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="{{ asset('css/forum.css') }}">
     <title>{{ post.titre }}</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+        html, body {
+            height: 100%;
+            overflow-y: auto;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
         .post-container {
             background-color: #fff;
@@ -84,13 +84,16 @@
         <p> Contenu : {{ post.contenuPost }}</p>
     </div>
 
-    <div class="comments-section">
-        <h3>Commentaires</h3>
-        
+   <div class="comments-section">
+    <h3>Commentaires</h3>
         {% for reponse in reponses %}
+                        <h4>{{ reponse.refUtilisateur.prenom }} {{ reponse.refUtilisateur.nom }} </h4>
+
             <div class="reponse">
                 <p>{{ reponse.contenu }}</p>
-                <p class="reponse-meta">Posté le {{ reponse.dateHeureReponse|date('d/m/Y à H:i') }}</p>
+                <p class="reponse-meta">
+                    le {{ reponse.dateHeureReponse|date('d/m/Y à H:i') }}
+                </p>
                 <form action="{{ path('app_reponse_edit', { id: reponse.id, postId: post.id }) }}" method="POST" style="display:inline-block;">
                     <button type="submit">Modifier</button>
                 </form>
@@ -103,6 +106,7 @@
             <p>Aucun commentaire.</p>
         {% endfor %}
     </div>
+
 
     <h3>Ajouter un commentaire</h3>
     <form action="{{ path('app_post_show', { id: post.id }) }}" method="POST">

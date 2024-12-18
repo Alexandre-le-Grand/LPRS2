@@ -7,11 +7,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 
-
 #[ORM\Entity(repositoryClass: ReponseRepository::class)]
 class Reponse
 {
-    // Yacine
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -26,6 +24,10 @@ class Reponse
     #[ORM\ManyToOne(inversedBy: 'reponses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $ref_post = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reponses')]
+    #[ORM\JoinColumn(name: 'ref_user', referencedColumnName: 'id', nullable: true)]
+    private ?User $refUtilisateur = null;
 
     public function getId(): ?int
     {
@@ -67,6 +69,7 @@ class Reponse
 
         return $this;
     }
+
     public function getRefUtilisateur(): ?User
     {
         return $this->refUtilisateur;

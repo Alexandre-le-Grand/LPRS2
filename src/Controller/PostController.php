@@ -61,25 +61,28 @@ final class PostController extends AbstractController
     #[Route('/post/{id}', name: 'app_post_show', methods: ['GET', 'POST'])]
     public function show(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
-        // Afficher les commentaires associés à ce post
+        $user = $this->getUser();
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour ajouter une réponse.');
+        }
+    
         $reponses = $post->getReponses();
-
-        // Ajout d'un nouveau commentaire
+    
         $contenu = trim($request->request->get('contenu'));
         if (!empty($contenu)) {
             $reponse = new Reponse();
             $reponse->setContenu($contenu);
             $reponse->setDateHeureReponse(new \DateTime());
             $reponse->setRefPost($post);
-            $reponse->setRefUtilisateur($this->getUser());
-
+            $reponse->setRefUtilisateur($user); 
+    
             $entityManager->persist($reponse);
             $entityManager->flush();
-
+    
             $this->addFlash('success', 'Réponse ajoutée avec succès.');
             return $this->redirectToRoute('app_post_show', ['id' => $post->getId()]);
         }
-
+    
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'reponses' => $reponses,

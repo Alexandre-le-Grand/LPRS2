@@ -1,0 +1,29 @@
+{# templates/post/user_comments.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Commentaires{% endblock %}
+
+{% block body %}
+    <h1>Mes Commentaires</h1>
+
+    {% if reponses is not empty %}
+        <ul>
+            {% for reponse in reponses %}
+                <li>
+                    <h4> Post : {{ reponse.refPost.titre }}</h4>
+                    <p>Ma réponse : {{ reponse.contenu }}</p>
+                    <p class="reponse-meta">Publié le {{ reponse.dateHeureReponse|date('d/m/Y à H:i') }}</p>
+                    <a href="{{ path('app_post_show', { id: reponse.refPost.id }) }}" class="btn btn-info">Voir le post</a>
+                    <a href="{{ path('app_reponse_edit', { id: reponse.id, postId: reponse.refPost.id }) }}" class="btn btn-warning">Modifier</a>
+                    <form action="{{ path('app_reponse_delete', { id: reponse.id, postId: reponse.refPost.id }) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reponse.id) }}">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun commentaire trouvé.</p>
+    {% endif %}
+{% endblock %}

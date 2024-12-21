@@ -1,6 +1,16 @@
+{% extends 'base.html.twig' %}
 
-<h2>Modifier votre réponse</h2>
-{{ form_start(form) }}
-    {{ form_row(form.contenu) }}
-    <button type="submit">Enregistrer</button>
-{{ form_end(form) }}
+{% block title %}Modifier la réponse{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/edit_commentaire.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <h1>Modifier le commentaire</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

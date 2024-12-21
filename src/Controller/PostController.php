@@ -11,33 +11,48 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reponse;
+use App\Form\ReponseType;
+use App\Repository\ReponseRepository;
 
 
 #[Route('/post')]
 final class PostController extends AbstractController
 {
     #[Route('/', name: 'app_post_index', methods: ['GET', 'POST'])]
-    public function index(Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository): Response
-    {
+    public function index( Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository,ReponseRepository $reponseRepository ): Response {
+        $user = $this->getUser();
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setRefUtilisateur($this->getUser());
+            $post->setRefUtilisateur($user);
             $post->setDateHeurePublication(new \DateTime());
-    
+
             $entityManager->persist($post);
             $entityManager->flush();
-    
+
             return $this->redirectToRoute('app_post_index');
         }
-    
+
+        $latestReponses = $reponseRepository->findBy(
+            ['refUtilisateur' => $user],
+            ['date_heure_reponse' => 'DESC'],
+            5
+        );
+
+        $posts = $postRepository->findAllByMostRecent();
+
         return $this->render('post/index.html.twig', [
             'form' => $form->createView(),
-            'posts' => $postRepository->findAllByMostRecent(),
+            'posts' => $posts,
+            'latestReponses' => $latestReponses,
         ]);
     }
+
+    
+
 
     #[Route('/edit/{id}', name: 'app_post_edit', methods: ['GET', 'POST'])]
     public function edit(Post $post, Request $request, EntityManagerInterface $entityManager): Response
@@ -125,7 +140,6 @@ final class PostController extends AbstractController
 
         $contenu = trim($request->request->get('contenu'));
         
-        // Validation pour éviter les mots interdits
         if (empty($contenu)) {
             $this->addFlash('error', 'Le contenu de la réponse ne peut pas être vide.');
             return $this->redirectToRoute('app_post_index');
@@ -155,20 +169,22 @@ final class PostController extends AbstractController
     #[Route('/post/{postId}/reponse/{id}', name: 'app_reponse_edit', methods: ['GET', 'POST'])]
     public function editReponse(Request $request, EntityManagerInterface $entityManager, Reponse $reponse): Response
     {
-        $form = $this->createForm(Reponse::class, $reponse);
+        $form = $this->createForm(ReponseType::class, $reponse); 
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_post_index');
+    
+            $this->addFlash('success', 'Le commentaire a été modifié avec succès.');
+            return $this->redirectToRoute('app_post_show', ['id' => $reponse->getRefPost()->getId()]);
         }
-
+    
         return $this->render('post/edit_reponse.html.twig', [
             'form' => $form->createView(),
             'reponse' => $reponse,
         ]);
     }
+    
 
     #[Route('/post/{postId}/reponse/{id}/delete', name: 'app_reponse_delete', methods: ['POST'])]
     public function deleteReponse(Request $request, EntityManagerInterface $entityManager, Reponse $reponse): Response
@@ -182,4 +198,18 @@ final class PostController extends AbstractController
 
         return $this->redirectToRoute('app_post_index');
     }
+
+    #[Route('/mes-comments', name: 'user.comment', methods: ['GET'])]
+    public function userComments(ReponseRepository $reponseRepository): Response
+    {
+        $user = $this->getUser();
+        $reponses = $reponseRepository->findBy(['refUtilisateur' => $user]);
+
+        return $this->render('post/user_comments.html.twig', [
+            'reponses' => $reponses,
+        ]);
+    }
+
+   
+    
 }

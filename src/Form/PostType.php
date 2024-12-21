@@ -6,6 +6,7 @@ use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PostType extends AbstractType
 {
@@ -14,8 +15,9 @@ class PostType extends AbstractType
         $builder
             ->add('titre', null, ['attr' => ['placeholder' => 'Titre du post']])
             ->add('contenuPost', null, ['attr' => ['placeholder' => 'Contenu du post']])
-            ->add('canal') // Champs pour le canal
-            // Suppression des champs inutiles
+            ->add('canal', HiddenType::class, [
+                'data' => $options['canal_default'], 
+            ]);
             
         ;
     }
@@ -23,7 +25,8 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,  // Assurez-vous que la classe de données est correcte
+            'data_class' => Post::class,  
+            'canal_default' => 'general',
         ]);
     }
 }

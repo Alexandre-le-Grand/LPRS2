@@ -9,3 +9,10 @@
 
     <a href="{{ path('app_post_index') }}">back to list</a>
 {% endblock %}
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}

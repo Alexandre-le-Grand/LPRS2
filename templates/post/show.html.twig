@@ -94,13 +94,6 @@
                 <p class="reponse-meta">
                     le {{ reponse.dateHeureReponse|date('d/m/Y à H:i') }}
                 </p>
-                <form action="{{ path('app_reponse_edit', { id: reponse.id, postId: post.id }) }}" method="POST" style="display:inline-block;">
-                    <button type="submit">Modifier</button>
-                </form>
-                <form action="{{ path('app_reponse_delete', { id: reponse.id, postId: post.id }) }}" method="POST" style="display:inline-block;">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reponse.id) }}">
-                    <button type="submit">Supprimer</button>
-                </form>
             </div>
         {% else %}
             <p>Aucun commentaire.</p>

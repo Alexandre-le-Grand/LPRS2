@@ -12,19 +12,19 @@
     <!-- Barre latérale gauche -->
     <div class="left-sidebar">
         <div class="logo">TCG LPRS</div>
-        <button class="active" onclick="window.location.href='{{ path('app_main') }}'"><i class="fas fa-home"></i> Accueil</button>
-        <button onclick="window.location.href='{{ path('app_post_entreprise') }}'"><i class="fas fa-user-graduate"></i> Canal Entreprises/Alumnis</button>
-        <button onclick="window.location.href='{{ path('app_post_etudiants') }}'"><i class="fas fa-users"></i> Canal Etudiants/Professeurs</button>
+        <button class="active" onclick="window.location.href='{{ path('app_post_index') }}'"><i class="fas fa-home"></i> Accueil</button>
+        <button onclick="window.location.href='{{ path('app_post_entreprise') }}'"><i class="fas fa-building"></i> Canal Entreprises/Alumni</button>
+        <button onclick="window.location.href='{{ path('app_post_etudiants') }}'"><i class="fas fa-user-graduate"></i> Canal Étudiants/Professeurs</button>
         <button onclick="window.location.href='{{ path('user.posts') }}'"><i class="fas fa-pencil-alt"></i> Mes Posts</button>
-        <button onclick="window.location.href='{{ path('user.comment') }}'"><i class="fas fa-pencil"></i> Mes Commentaires</button>
+        <button onclick="window.location.href='{{ path('user.comment') }}'"><i class="fas fa-comments"></i> Mes Commentaires</button>
     </div>
 
     <!-- Contenu principal -->
     <div class="main-content">
         <div class="feed-content">
             <!-- Formulaire de publication -->
-            <div class="create-indication"> 
-                <img src="https://www.lyceerobertschuman.com/wp-content/uploads/2016/03/logo.png" alt="Votre photo de profil">
+            <div class="create-post">
+                <img src="https://www.lyceerobertschuman.com/wp-content/uploads/2016/03/logo.png" alt="Votre photo de profil" style="width: 100px; height: 70px; border-radius: 50%;">
                 
                 {% if form is defined %}
                     {{ form_start(form) }}
@@ -42,17 +42,15 @@
                 {% else %}
                     <p>Formulaire non disponible.</p>
                 {% endif %}
-
             </div>
 
             <!-- Affichage des posts -->
-            <h3> Fil d'actualités </h3>
+            <h3>Fil d'actualités :</h3>
             {% if posts is defined and posts is not empty %}
-            {% for post in posts %}
-                {% if post.canal == 'general' %}
-                    <div class="indication">
-                        <div class="indication-header">
-                            <img src="https://www.lyceerobertschuman.com/wp-content/uploads/2016/03/logo.png" alt="Avatar de l'utilisateur">
+                {% for post in posts %}
+                    <div class="post">
+                        <div class="post-header">
+                            <img src="https://www.lyceerobertschuman.com/wp-content/uploads/2016/03/logo.png" alt="Votre photo de profil" style="width: 100px; height: 70px; border-radius: 50%;">
                             <div class="user-info">
                                 <h3>{{ post.refUtilisateur.prenom }} {{ post.refUtilisateur.nom }}</h3>
                             </div>
@@ -61,50 +59,57 @@
                         <p>{{ post.contenuPost }}</p>
                         <p>Publié le {{ post.dateHeurePublication|date('d/m/Y à H:i') }}</p>
 
+                        <!-- Commentaires -->
                         <h3>Commentaires</h3>
                         {% if post.reponses is defined and post.reponses is not empty %}
                             {% for reponse in post.reponses %}
-                            <h4>{{ reponse.refUtilisateur.prenom }} {{ reponse.refUtilisateur.nom }} </h4>
                                 <div class="reponse">
+                                    <h4>{{ reponse.refUtilisateur.prenom }} {{ reponse.refUtilisateur.nom }}</h4>
                                     <p>{{ reponse.contenu }}</p>
+                                    <p>Publié le {{ reponse.dateHeureReponse|date('d/m/Y à H:i') }}</p>
                                 </div>
                             {% endfor %}
                         {% else %}
                             <p>Aucun commentaire pour ce post.</p>
                         {% endif %}
 
-
-                        <div class="indication-actions">
+                        <!-- Boutons d'action -->
+                        <div class="post-actions">
                             <button onclick="window.location.href = '{{ path('app_post_show', {id: post.id}) }}';">
                                 <i class="fas fa-comments"></i> Commenter
                             </button>
                         </div>
                     </div>
-                {% endif %}
+                {% endfor %}
             {% else %}
-                <p>Aucun post trouvé.</p>
-            {% endfor %}
+                <p>Aucun post trouvé pour ce canal.</p>
             {% endif %}
-
-
         </div>
     </div>
-
-    <!-- Barre latérale droite -->
+     <!-- Barre latérale droite -->
     <div class="right-sidebar">
-    <div class="right-sidebar-section">
-        <h2>Mes Derniers Commentaires</h2>
-        {% if latestReponses is not empty %}
-            {% for reponse in latestReponses %}
-                <div class="reponse">
-                    <h4>{{ reponse.refUtilisateur.prenom }} {{ reponse.refUtilisateur.nom }}</h4>
-                    <p>{{ reponse.contenu }}</p>
-                    <p>Publié le {{ reponse.dateHeureReponse|date('d/m/Y à H:i') }}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>Aucun commentaire trouvé.</p>
-        {% endif %}
+        <div class="right-sidebar-section">
+        <h2>FAQ - Questions Fréquemment Posées</h2>
+
+        <div class="faq-item">
+            <h4>Comment publier un post sur le forum ?</h4>
+            <p>Pour publier un post, utilisez le formulaire de publication sur la page appropriée (Entreprise, Étudiant, etc.).</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Quel type de contenu est autorisé ?</h4>
+            <p>Seuls les posts pertinents liés aux canaux Entreprise ou Étudiant sont acceptés. Les discussions générales sont limitées aux informations pertinentes aux étudiants et aux entreprises.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Où trouver mes posts et commentaires ?</h4>
+            <p>Vos posts et commentaires sont visibles sur la section "Mes Posts" ou "Mes Commentaires" du menu latéral.</p>
+        </div>
+
+        <div class="faq-item">
+            <h4>Qui peut voir mes posts ?</h4>
+            <p>Les posts sont visibles selon le canal sélectionné : Entreprise, Étudiant, ou Général, selon votre choix au moment de la publication.</p>
+        </div>
         </div>
     </div>
 </div>

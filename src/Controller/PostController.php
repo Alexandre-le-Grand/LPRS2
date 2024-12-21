@@ -13,6 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Reponse;
 use App\Form\ReponseType;
 use App\Repository\ReponseRepository;
+// j'ai essayé de filtrer les reponses mais j'ai echoué
+use Cleantalk\Antispam\CleanTalk;
+use phpmussel\PHPMussel;
+
+
 
 
 #[Route('/post')]
@@ -21,9 +26,10 @@ final class PostController extends AbstractController
     #[Route('/', name: 'app_post_index', methods: ['GET', 'POST'])]
     public function index( Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository,ReponseRepository $reponseRepository ): Response {
         $user = $this->getUser();
-
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, [
+            'canal_default' => 'general',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -145,13 +151,6 @@ final class PostController extends AbstractController
             return $this->redirectToRoute('app_post_index');
         }
         
-        $badWords = ['insulte1', 'insulte2']; // Liste des mots à bannir
-        foreach ($badWords as $badWord) {
-            if (stripos($contenu, $badWord) !== false) {
-                $this->addFlash('error', 'Votre réponse contient un mot interdit.');
-                return $this->redirectToRoute('app_post_index');
-            }
-        }
 
         $reponse = new Reponse();
         $reponse->setContenu($contenu);
@@ -210,6 +209,72 @@ final class PostController extends AbstractController
         ]);
     }
 
-   
-    
+    #[Route('/entreprise', name: 'app_post_entreprise', methods: ['GET', 'POST'])]
+    public function indexEntreprise( Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository ): Response 
+    {
+        $user = $this->getUser();
+
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post, [
+            'canal_default' => 'entreprise',
+        ]);        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post->setRefUtilisateur($user);
+            $post->setDateHeurePublication(new \DateTime());
+            $post->setCanal('entreprise'); 
+
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_post_entreprise');
+        }
+
+        $posts = $postRepository->findBy(
+            ['canal' => 'entreprise'],
+            ['date_heure_publication' => 'DESC']
+        );
+
+        return $this->render('post/entreprise.html.twig', [
+            'form' => $form->createView(),
+            'posts' => $posts,
+        ]);
+    }
+
+    #[Route('/etudiants', name: 'app_post_etudiants', methods: ['GET', 'POST'])]
+    public function indexEtudiants(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        PostRepository $postRepository
+    ): Response {
+        $user = $this->getUser();
+
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post, [
+            'canal_default' => 'etudiant',
+        ]);        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post->setRefUtilisateur($user);
+            $post->setDateHeurePublication(new \DateTime());
+            $post->setCanal('etudiant'); 
+
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_post_etudiants');
+        }
+
+        $posts = $postRepository->findBy(
+            ['canal' => 'etudiant'],
+            ['date_heure_publication' => 'DESC']
+        );
+
+        return $this->render('post/etudiants.html.twig', [
+            'form' => $form->createView(),
+            'posts' => $posts,
+        ]);
+    }
 }
